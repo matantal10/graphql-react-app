@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "text": "Matan",
+    "day": "today",
+    "reminder": true
+  },
+  {
+    "id": 2,
+    "text": "Barak",
+    "day": "tomorrow",
+    "reminder": true
+  }
+]
