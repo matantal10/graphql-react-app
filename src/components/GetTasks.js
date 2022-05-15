@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
 import {LOAD_TASKS} from "../graphql/Queries";
+import Task from "./task";
+import {DELETE_TASK_MUTATION} from "../graphql/Mutations";
 
 function GetTasks(props) {
     /**
@@ -9,6 +11,8 @@ function GetTasks(props) {
     const {error, loading, data} = useQuery(LOAD_TASKS);
 
     const [tasks, setTasks ] = useState([]);
+
+    const [deleteTask] = useMutation(DELETE_TASK_MUTATION);
 
     useEffect(() => {
         if(data) {
@@ -23,8 +27,12 @@ function GetTasks(props) {
 
     return (
         <div>
-            {tasks.map((val) => {
-                return <h3 key={val.id}>{val.text}</h3>
+            {data && data.getAllTasks.map((task) => {
+                return (
+                    <div>
+                        <Task key={task.id} task={task}/>
+                    </div>
+                );
             })}
         </div>
     );

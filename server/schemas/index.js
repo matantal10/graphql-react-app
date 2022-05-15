@@ -1,6 +1,6 @@
 
 const graphql = require("graphql");
-const {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLList} =  graphql;
+const {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLBoolean, GraphQLList, GraphQLID} =  graphql;
 
 const taskData = require("../GRAPHQL_MOCK_DATA.json");
 const TaskType = require('./TypeDevs/TaskType');
@@ -35,6 +35,18 @@ const Mutation = new GraphQLObjectType({
             resolve(parent, args) {
                 taskData.push({id: taskData.length + 1, text: args.text, day: args.day , reminder: args.reminder});
                 return args
+            }
+        },
+        deleteTask: {
+            type: TaskType,
+            args: {
+                id: {type: GraphQLID}
+            },
+            resolve(parent, args) {
+                const id = args.id;
+                taskData.filter(task => task.id !== id);
+                return args
+                console.log(id);
             }
         }
     }
