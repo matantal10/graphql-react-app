@@ -8,6 +8,9 @@ const TaskType = require('./TypeDevs/TaskType');
  * we need to define an object type for the task.
  * @type {GraphQLObjectType}
  */
+
+let storage = taskData;
+
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
@@ -15,7 +18,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(TaskType),
             args: {id: {type: GraphQLInt}},
             resolve(parent, args) {
-                return taskData
+                return storage
             }
         }
     }
@@ -34,19 +37,28 @@ const Mutation = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 taskData.push({id: taskData.length + 1, text: args.text, day: args.day , reminder: args.reminder});
+                storage = taskData;
                 return args
             }
         },
         deleteTask: {
             type: TaskType,
             args: {
-                id: {type: GraphQLID}
+                id: {type: GraphQLInt}
             },
             resolve(parent, args) {
-                const id = args.id;
-                taskData.filter(task => task.id !== id);
-                return args
-                console.log(id);
+                const id = +args.id;
+                storage = taskData.filter(task => task.id !== id);
+                return args;
+            }
+        },
+        updateTask: {
+            type: TaskType,
+            args: {
+
+            },
+            resolve(parent, args) {
+
             }
         }
     }

@@ -13,7 +13,7 @@ const Task = ({task, onToggle}) => {
             variables: {
                 id: id
             }
-        }).catch(e => e);
+        });
     };
 
 

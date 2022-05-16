@@ -21,7 +21,7 @@ export const CREATE_TASK_MUTATION = gql`
 export const DELETE_TASK_MUTATION = gql`
     
     mutation deleteTask(
-        $id: ID!
+        $id: Int!
         ) {
         deleteTask (
             id: $id
