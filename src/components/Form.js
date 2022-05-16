@@ -38,7 +38,7 @@ function Form(props) {
                  <label>Set Reminder</label>
                  <input type="checkbox" value={reminder} checked={reminder} onChange={(e) => {setReminder(e.currentTarget.checked)}}/>
             </div>
-            <button className='btn btn-block' onClick={addTask}>Create Task</button>
+            <button className={`btn btn-block ${text.length === 0 ? 'btn-disabled' : ''}` } onClick={addTask}>Create Task</button>
         </div>
     );
 }

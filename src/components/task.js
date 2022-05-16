@@ -1,15 +1,24 @@
 import React from 'react';
 import {FaTimes} from "react-icons/fa";
 import {useMutation} from "@apollo/client";
-import {DELETE_TASK_MUTATION} from "../graphql/Mutations";
+import {DELETE_TASK_MUTATION, UPDATE_TASK_MUTATION} from "../graphql/Mutations";
 
-const Task = ({task, onToggle}) => {
+const Task = ({task}) => {
 
 
     const [deleteTask] = useMutation(DELETE_TASK_MUTATION);
+    const [updateTask] = useMutation(UPDATE_TASK_MUTATION);
 
     const onDelete = (id) => {
         deleteTask({
+            variables: {
+                id: id
+            }
+        });
+    };
+
+    const onToggle = (id) => {
+        updateTask({
             variables: {
                 id: id
             }

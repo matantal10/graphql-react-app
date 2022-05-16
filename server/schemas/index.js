@@ -47,18 +47,19 @@ const Mutation = new GraphQLObjectType({
                 id: {type: GraphQLInt}
             },
             resolve(parent, args) {
-                const id = +args.id;
-                storage = taskData.filter(task => task.id !== id);
-                return args;
+                storage = taskData.filter(task => task.id !== args.id);
             }
         },
         updateTask: {
             type: TaskType,
             args: {
-
+                id: {type: GraphQLInt}
             },
             resolve(parent, args) {
-
+                taskData.map((task) => {
+                 if(task.id === args.id)
+                     task.reminder = !task.reminder;
+                })
             }
         }
     }

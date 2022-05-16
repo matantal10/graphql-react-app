@@ -55,6 +55,11 @@ body {
   width: 100%;
 }
 
+.btn-disabled {
+  pointer-events: none;
+  opacity: 0.4;
+ }
+
 .task {
   background: #f4f4f4;
   margin: 5px;

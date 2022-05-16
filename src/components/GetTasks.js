@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useMutation, useQuery} from "@apollo/client";
+import {useQuery} from "@apollo/client";
 import {LOAD_TASKS} from "../graphql/Queries";
 import Task from "./task";
-import {DELETE_TASK_MUTATION} from "../graphql/Mutations";
 
 function GetTasks(props) {
     /**
@@ -12,18 +11,13 @@ function GetTasks(props) {
 
     const [tasks, setTasks ] = useState([]);
 
-    const [deleteTask] = useMutation(DELETE_TASK_MUTATION);
-
     useEffect(() => {
         if(data) {
             console.log(data.getAllTasks)
             setTasks(data.getAllTasks)
         }
 
-    }, [data]);
-
-
-
+    }, [data, tasks]);
 
     return (
         <div>
