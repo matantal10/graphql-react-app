@@ -21,7 +21,7 @@ function GetTasks(props) {
 
     return (
         <div>
-            {data && data.getAllTasks.map((task) => {
+            {tasks.map((task) => {
                 return (
                     <div>
                         <Task key={task.id} task={task}/>

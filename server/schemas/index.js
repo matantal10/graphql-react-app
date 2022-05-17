@@ -4,13 +4,11 @@ const {GraphQLObjectType, GraphQLSchema, GraphQLInt, GraphQLString, GraphQLBoole
 
 const taskData = require("../GRAPHQL_MOCK_DATA.json");
 const TaskType = require('./TypeDevs/TaskType');
+
 /**
  * we need to define an object type for the task.
  * @type {GraphQLObjectType}
  */
-
-let storage = taskData;
-
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
@@ -18,7 +16,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(TaskType),
             args: {id: {type: GraphQLInt}},
             resolve(parent, args) {
-                return storage
+                return taskData
             }
         }
     }
@@ -37,7 +35,6 @@ const Mutation = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 taskData.push({id: taskData.length + 1, text: args.text, day: args.day , reminder: args.reminder});
-                storage = taskData;
                 return args
             }
         },
@@ -47,7 +44,8 @@ const Mutation = new GraphQLObjectType({
                 id: {type: GraphQLInt}
             },
             resolve(parent, args) {
-                storage = taskData.filter(task => task.id !== args.id);
+                const index = taskData.findIndex(task => task.id === args.id);
+                taskData.splice(index, 1)
             }
         },
         updateTask: {
